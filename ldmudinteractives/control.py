@@ -1,4 +1,4 @@
-import ldmud
+import ldmud, sys
 
 from . import ob
 from . import input
@@ -46,3 +46,13 @@ def efun_make_interactive(inter_ob: ldmud.Object, control_ob: (ldmud.Object, str
 
 def efun_users() -> ldmud.Array:
     return ldmud.efuns.users() + ldmud.Array(interactives.keys())
+
+def on_reload_delayed():
+    ldmud.unregister_hook(ldmud.ON_HEARTBEAT, on_reload_delayed)
+
+    newmodule = sys.modules.get(__name__, None)
+    if newmodule:
+        newmodule.interactives.update(interactives)
+
+def on_reload():
+    ldmud.register_hook(ldmud.ON_HEARTBEAT, on_reload_delayed)

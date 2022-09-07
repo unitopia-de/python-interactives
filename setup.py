@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="ldmud-efun-virtual-interactives",
-    version="0.0.1",
+    version="0.0.2",
     author="UNItopia Administration",
     author_email="mudadm@UNItopia.DE",
     description="Implements virtual interactives",
