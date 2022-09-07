@@ -1,5 +1,5 @@
 import ldmud
-import socket
+import socket, struct
 
 class Interactive:
     def __init__(self, control_ob, hostname, hostaddr, hostport, mudport):
@@ -32,12 +32,12 @@ class Interactive:
 
         raw = struct.pack("<H", info[0]) + struct.pack(">H", info[4][1])
 
-        if family == socket.AF_INET6:
+        if info[0] == socket.AF_INET6:
             raw += 4*b"\x00"
         raw += socket.inet_pton(info[0], info[4][0])
-        if family == socket.AF_INET:
+        if info[0] == socket.AF_INET:
             raw +=  8*b"\x00"
-        elif family == socket.AF_INET6:
+        elif info[0] == socket.AF_INET6:
             raw +=  4*b"\x00"
 
         return ldmud.Array(raw)

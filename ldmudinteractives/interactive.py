@@ -48,7 +48,7 @@ def efun_remove_interactive(inter_ob: ldmud.Object) -> None:
     if data is None:
         return ldmud.efuns.remove_interactive(inter_ob)
     else:
-        del control.interactives[data]
+        del control.interactives[inter_ob]
         data.call_control_ob("interactive_removed", inter_ob)
 
 def efun_exec(inter_ob1: ldmud.Object, inter_ob2: ldmud.Object) -> int:
